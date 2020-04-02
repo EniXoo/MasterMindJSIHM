@@ -1,0 +1,54 @@
+.board {
+	background-color: #444;
+	width: 50%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+.dot-container{
+	width: 50%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+.dot {
+	vertical-align: middle;
+	height: 3vw;
+	width: 3vw;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 2% 2%;
+}
+.dot1 {
+	background-color: #000;
+}
+.dot2 {
+	background-color: #fff;
+}
+.dot3 {
+	background-color: #f00;
+}
+.dot4 {
+	background-color: #f70;
+}
+.dot5 {
+	background-color: #ff0;
+}
+.dot6 {
+	background-color: #00f;
+}
+.dot7 {
+	background-color: #0ff;
+}
+.dot8 {
+	background-color: #70f;
+}
+
+.hint {
+	background-color: inherit;
+	height: 1vw;
+	width: 1vw;
+	border: 1px #000 solid;
+	margin: 1% 1%;
+}

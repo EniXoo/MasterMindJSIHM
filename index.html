@@ -1,0 +1,148 @@
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="style.css" />
+	<title>Mastermind</title>
+</head>
+
+<body onload="MasterMind.defineCombinaisonSecrete()">
+	<div class="board">
+		<div class="dot-container">
+			<div class="ligne1">
+				<div class="dot" id="dot-1-1"></div>
+				<div class="dot" id="dot-1-2"></div>
+				<div class="dot" id="dot-1-3"></div>
+				<div class="dot" id="dot-1-4"></div>
+				<div class="dot hint" id="hint-1-1"></div>
+				<div class="dot hint" id="hint-1-2"></div>
+				<div class="dot hint" id="hint-1-3"></div>
+				<div class="dot hint" id="hint-1-4"></div>
+			</div>
+			<br />
+			<div class="ligne2">
+				<div class="dot" id="dot-2-1"></div>
+				<div class="dot" id="dot-2-2"></div>
+				<div class="dot" id="dot-2-3"></div>
+				<div class="dot" id="dot-2-4"></div>
+				<div class="dot hint" id="hint-2-1"></div>
+				<div class="dot hint" id="hint-2-2"></div>
+				<div class="dot hint" id="hint-2-3"></div>
+				<div class="dot hint" id="hint-2-4"></div>
+			</div>
+			<br />
+			<div class="ligne3">
+				<div class="dot" id="dot-3-1"></div>
+				<div class="dot" id="dot-3-2"></div>
+				<div class="dot" id="dot-3-3"></div>
+				<div class="dot" id="dot-3-4"></div>
+				<div class="dot hint" id="hint-3-1"></div>
+				<div class="dot hint" id="hint-3-2"></div>
+				<div class="dot hint" id="hint-3-3"></div>
+				<div class="dot hint" id="hint-3-4"></div>
+			</div>
+			<br />
+			<div class="ligne4">
+				<div class="dot" id="dot-4-1"></div>
+				<div class="dot" id="dot-4-2"></div>
+				<div class="dot" id="dot-4-3"></div>
+				<div class="dot" id="dot-4-4"></div>
+				<div class="dot hint" id="hint-4-1"></div>
+				<div class="dot hint" id="hint-4-2"></div>
+				<div class="dot hint" id="hint-4-3"></div>
+				<div class="dot hint" id="hint-4-4"></div>
+			</div>
+			<br />
+			<div class="ligne5">
+				<div class="dot" id="dot-5-1"></div>
+				<div class="dot" id="dot-5-2"></div>
+				<div class="dot" id="dot-5-3"></div>
+				<div class="dot" id="dot-5-4"></div>
+				<div class="dot hint" id="hint-5-1"></div>
+				<div class="dot hint" id="hint-5-2"></div>
+				<div class="dot hint" id="hint-5-3"></div>
+				<div class="dot hint" id="hint-5-4"></div>
+			</div>
+			<br />
+			<div class="ligne6">
+				<div class="dot" id="dot-6-1"></div>
+				<div class="dot" id="dot-6-2"></div>
+				<div class="dot" id="dot-6-3"></div>
+				<div class="dot" id="dot-6-4"></div>
+				<div class="dot hint" id="hint-6-1"></div>
+				<div class="dot hint" id="hint-6-2"></div>
+				<div class="dot hint" id="hint-6-3"></div>
+				<div class="dot hint" id="hint-6-4"></div>
+			</div>
+			<br />
+			<div class="ligne7">
+				<div class="dot" id="dot-7-1"></div>
+				<div class="dot" id="dot-7-2"></div>
+				<div class="dot" id="dot-7-3"></div>
+				<div class="dot" id="dot-7-4"></div>
+				<div class="dot hint" id="hint-7-1"></div>
+				<div class="dot hint" id="hint-7-2"></div>
+				<div class="dot hint" id="hint-7-3"></div>
+				<div class="dot hint" id="hint-7-4"></div>
+			</div>
+			<br />
+			<div class="ligne8">
+				<div class="dot" id="dot-8-1"></div>
+				<div class="dot" id="dot-8-2"></div>
+				<div class="dot" id="dot-8-3"></div>
+				<div class="dot" id="dot-8-4"></div>
+				<div class="dot hint" id="hint-8-1"></div>
+				<div class="dot hint" id="hint-8-2"></div>
+				<div class="dot hint" id="hint-8-3"></div>
+				<div class="dot hint" id="hint-8-4"></div>
+			</div>
+			<br />
+			<div class="ligne9">
+				<div class="dot" id="dot-9-1"></div>
+				<div class="dot" id="dot-9-2"></div>
+				<div class="dot" id="dot-9-3"></div>
+				<div class="dot" id="dot-9-4"></div>
+				<div class="dot hint" id="hint-9-1"></div>
+				<div class="dot hint" id="hint-9-2"></div>
+				<div class="dot hint" id="hint-9-3"></div>
+				<div class="dot hint" id="hint-9-4"></div>
+			</div>
+			<br />
+			<div class="ligne10">
+				<div class="dot" id="dot-10-1"></div>
+				<div class="dot" id="dot-10-2"></div>
+				<div class="dot" id="dot-10-3"></div>
+				<div class="dot" id="dot-10-4"></div>
+				<div class="dot hint" id="hint-10-1"></div>
+				<div class="dot hint" id="hint-10-2"></div>
+				<div class="dot hint" id="hint-10-3"></div>
+				<div class="dot hint" id="hint-10-4"></div>
+			</div>
+
+			<br />
+			<br />
+			<div class="choice-container">
+				<div class="dot dot1" id="dot-1" onclick=MasterMind.getColor(1)></div>
+				<div class="dot dot2" id="dot-2" onclick=MasterMind.getColor(2)></div>
+				<div class="dot dot3" id="dot-3" onclick=MasterMind.getColor(3)></div>
+				<div class="dot dot4" id="dot-4" onclick=MasterMind.getColor(4)></div>
+				<img style="height: 3vw;width: 3vw;vertical-align: middle;" src="check-solid.svg" alt="delete"
+					onclick=MasterMind.checkProposition()>
+				<br />
+				<div class="dot dot5" id="dot-5" onclick=MasterMind.getColor(5)></div>
+				<div class="dot dot6" id="dot-6" onclick=MasterMind.getColor(6)></div>
+				<div class="dot dot7" id="dot-7" onclick=MasterMind.getColor(7)></div>
+				<div class="dot dot8" id="dot-8" onclick=MasterMind.getColor(8)></div>
+				<img style="height: 3vw;width: 3vw;vertical-align: middle;" src="times-solid.svg" alt="delete"
+					onclick=MasterMind.clearLast()>
+
+			</div>
+		</div>
+
+
+	</div>
+</body>
+<script src="script.js"></script>
+
+</html>
