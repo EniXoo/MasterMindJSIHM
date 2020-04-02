@@ -72,16 +72,21 @@ var MasterMind = {
     },
 
     checkProposition() {
-        if (this.jeu.colonne != this.parametres.colonnes) {
+        if (this.jeu.colonne != this.parametres.colonnes) { // Si champs de proposition incomplet
             alert("Il manque des couleurs");
         }
         else {
-            if (JSON.stringify(this.jeu.combinaisonSecrete) == JSON.stringify(this.jeu.selection)) {
+            if (JSON.stringify(this.jeu.combinaisonSecrete) == JSON.stringify(this.jeu.selection)) { // Comparaison de la proposition et de la combinaison secrète
                 alert("Gagné");
             }
             else {
-                this.jeu.tour += 1;
-                this.jeu.colonne = 0;
+                if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
+                    alert("PERDU");
+                }
+                else { // Sinon on passe au tour suivant
+                    this.jeu.tour += 1;
+                    this.jeu.colonne = 0;
+                }
             }
         }
     }
