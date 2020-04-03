@@ -52,3 +52,11 @@
 	border: 1px #000 solid;
 	margin: 1% 1%;
 }
+
+.hintOk{
+	background-color: black;
+}
+
+.hintNearly{
+	background-color: white;
+}

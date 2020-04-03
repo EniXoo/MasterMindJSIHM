@@ -27,7 +27,7 @@ var MasterMind = {
 
     defineCombinaisonSecrete() {
         for (i = 0; i < this.parametres.colonnes; i++) {
-            this.jeu.combinaisonSecrete.push(getRandomInt(this.parametres.nbCouleurs));
+            this.jeu.combinaisonSecrete.push(parseInt(Math.random() * this.parametres.nbCouleurs) + 1);
         }
     },
 
@@ -64,8 +64,8 @@ var MasterMind = {
     },
 
     clearLast() {
-        if (this.jeu.colonne != 0) {
-            this.jeu.selection.pop();
+        if (this.jeu.colonne != 0) { // Si ligne pas vide
+            this.jeu.selection.pop(); // On enlève le dernier élément de la liste selection
             this.jeu.colonne = this.jeu.colonne - 1;
             this.addColor(0);
         }
@@ -83,7 +83,33 @@ var MasterMind = {
                 if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
                     alert("PERDU");
                 }
-                else { // Sinon on passe au tour suivant
+                else { // Sinon 
+                    compteur = 1;
+                    checked = [0, 0, 0, 0, 0, 0, 0, 0];
+                    for (i = 0; i < this.parametres.colonnes; i++) {
+                        // On check les biens placés
+                        if (this.jeu.combinaisonSecrete[i] == this.jeu.selection[i]) {
+                            var nomHint = 'hint-';
+                            nomHint += 10 - this.jeu.tour;
+                            nomHint += '-';
+                            nomHint += compteur;
+                            document.getElementById(nomHint).className = 'dot hint hintOk';
+                            checked[this.jeu.combinaisonSecrete[i] - 1] = i;
+                            compteur++;
+                        }
+                    }
+                    for (i = 0; i < this.parametres.colonnes; i++) {
+                        // On check les présents, mais mal placé
+                        if (this.jeu.selection.includes(this.jeu.combinaisonSecrete[i], checked[this.jeu.combinaisonSecrete[i] - 1]) && this.jeu.combinaisonSecrete[i] != this.jeu.selection[i]) {
+                            var nomHint = 'hint-';
+                            nomHint += 10 - this.jeu.tour;
+                            nomHint += '-';
+                            nomHint += compteur;
+                            document.getElementById(nomHint).className = 'dot hint hintNearly';
+                            compteur++;
+                        }
+                    }
+                    //Enfin on passe au tour suivant
                     this.jeu.tour += 1;
                     this.jeu.colonne = 0;
                 }
