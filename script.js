@@ -27,7 +27,7 @@ var MasterMind = {
 
     defineCombinaisonSecrete() {
         for (i = 0; i < this.parametres.colonnes; i++) {
-            this.jeu.combinaisonSecrete.push(parseInt(Math.random() * this.parametres.nbCouleurs) + 1);
+            this.jeu.combinaisonSecrete.push(getRandomInt(this.parametres.nbCouleurs));
         }
     },
 
@@ -51,7 +51,7 @@ var MasterMind = {
         nomId += 10 - this.jeu.tour;
         nomId += '-';
         nomId += this.jeu.colonne + 1;
-        if (choix == 0) { // Sert pour réinitialliser la dernière case
+        if (choix == 0) { // Sert pour réinitialiser la dernière case
             var nomClasse = 'dot'
             document.getElementById(nomId).className = nomClasse;
         }
