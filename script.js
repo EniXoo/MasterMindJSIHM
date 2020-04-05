@@ -82,6 +82,7 @@ var MasterMind = {
             else {
                 if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
                     alert("PERDU");
+                    restart();
                 }
                 else { // Sinon 
                     compteur = 1;
@@ -115,5 +116,9 @@ var MasterMind = {
                 }
             }
         }
+    },
+
+    restart(){
+        document.location.href="index.html";
     }
 }
