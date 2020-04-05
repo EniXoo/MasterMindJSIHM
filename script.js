@@ -42,7 +42,7 @@ var MasterMind = {
             this.addColor(choix);
         }
         else {
-            alert("STOP IT RIGHT NOW BIATCH$");
+            alert("Vous ne pouvez pas ajouter plus de "+MasterMind.parametres.colonnes+" couleurs.");
         }
     },
 
