@@ -120,5 +120,35 @@ var MasterMind = {
 
     restart(){
         document.location.href="index.html";
-    }
+    },
+
+    getParameterColonne(){
+        var col = document.getElementsByName('paraColonne');
+        for (var i=0; i < col.length; i++){
+            if (col[i].checked){
+                MasterMind.parametres.colonnes=parseInt(col[i].value,10);
+                break;
+          }
+        }
+      },
+
+    getParameterLigne(){
+        var lig = document.getElementsByName('paraLigne');
+        for (var i=0; i < lig.length; i++){
+            if (lig[i].checked){
+                MasterMind.parametres.lines=parseInt(lig[i].value,10);
+                break;
+          }
+        }
+      },
+
+    getParameterCouleur(){
+        var coul = document.getElementsByName('paraCoule');
+        for (var i=0; i < coul.length; i++){
+            if (coul[i].checked){
+                MasterMind.parametres.nbCouleurs=parseInt(coul[i].value,10);
+                break;
+          }
+        }
+      }
 }

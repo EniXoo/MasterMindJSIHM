@@ -139,8 +139,56 @@
 
 			</div>
 		</div>
-
-
+	</div>
+	<div>
+		<h1>Paramètres</h1>
+		<form name ="paraCol" onchange="MasterMind.getParameterColonne()">
+			<p>Choississez un nombre de couleurs à deviner</p>
+			<div>
+				<input type="radio" id="paramColonne1" name="paraColonne" value="4"	checked>
+				<label for="paraColonne">4</label>
+				<input type="radio" id="paramColonne2" name="paraColonne" value="5">
+				<label for="paraColonne">5</label>
+				<input type="radio" id="paramColonne3" name="paraColonne" value="6">
+				<label for="paraColonne">6</label>
+				<input type="radio" id="paramColonne4" name="paraColonne" value="7">
+				<label for="paraColonne">7</label>
+				<input type="radio" id="paramColonne5" name="paraColonne" value="8">
+				<label for="paraColonne">8</label>
+			</div>
+		</form>
+		<form name ="paraLignes" onchange="MasterMind.getParameterLigne()">
+			<p>Choississez un nombre de tentatives</p>
+			<div>
+				<input type="radio" id="paramLigne1" name="paraLigne" value="5"	checked>
+				<label for="paraLigne">5</label>
+				<input type="radio" id="paramLigne2" name="paraLigne" value="6">
+				<label for="paraLigne">6</label>
+				<input type="radio" id="paramLigne3" name="paraLigne" value="7">
+				<label for="paraLigne">7</label>
+				<input type="radio" id="paramLigne4" name="paraLigne" value="8">
+				<label for="paraLigne">8</label>
+				<input type="radio" id="paramLigne5" name="paraLigne" value="9">
+				<label for="paraLigne">9</label>
+				<input type="radio" id="paramLigne6" name="paraLigne" value="10">
+				<label for="paraLigne">10</label>
+			</div>
+		</form>
+		<form name ="paraCoul" onchange="MasterMind.getParameterCouleur()">
+			<p>Choisissez le nombre de couleurs disponibles</p>
+			<div>
+				<input type="radio" id="paramCoul1" name="paraCoule" value="4"	checked>
+				<label for="paraCoule">4</label>
+				<input type="radio" id="paramCoul2" name="paraCoule" value="5">
+				<label for="paraCoule">5</label>
+				<input type="radio" id="paramCoul3" name="paraCoule" value="6">
+				<label for="paraCoule">6</label>
+				<input type="radio" id="paramCoul4" name="paraCoule" value="7">
+				<label for="paraCoule">7</label>
+				<input type="radio" id="paramCoul5" name="paraCoule" value="8">
+				<label for="paraCoule">8</label>
+			</div>
+		</form>
 	</div>
 </body>
 <script src="script.js"></script>
