@@ -42,7 +42,7 @@ var MasterMind = {
             this.addColor(choix);
         }
         else {
-            alert("STOP IT RIGHT NOW BIATCH$");
+            alert("Vous ne pouvez pas placer plus de "+MasterMind.parametres.colonnes+" couleurs");
         }
     },
 
@@ -82,7 +82,7 @@ var MasterMind = {
             else {
                 if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
                     alert("PERDU");
-                    restart();
+                    this.restart();
                 }
                 else { // Sinon 
                     compteur = 1;
