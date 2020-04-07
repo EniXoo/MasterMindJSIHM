@@ -2,38 +2,35 @@ var MasterMind = {
     nom: 'MasterMind',
 
     couleurs: {
-        1: '#000000', // noir
-        2: '#FFFFFF', // blanc
-        3: '#CC3333', // rouge
-        4: '#ff9600', // orange
-        5: '#fff000', // jaune
-        6: '#0005c2', // bleu
-        7: '#00d8d5', // cyan
-        8: '#8a05fa', // violet
+        1: '#000000', // Noir
+        2: '#FFFFFF', // Blanc
+        3: '#CC3333', // Rouge
+        4: '#ff9600', // Orange
+        5: '#fff000', // Jaune
+        6: '#0005c2', // Bleu
+        7: '#00d8d5', // Cyan
+        8: '#8a05fa', // Violet
     },
 
     parametres: {
-        lines: 10, // lignes disponibles pour arriver au résultat
-        colonnes: 4, // nb de billes à deviner.
-        nbCouleurs: 8, // couleurs disponibles
+        lines: 10, // Lignes disponibles avant de perdre = Nombre d'essai pour trouver la combinaison secrète
+        colonnes: 4, // Colonnes disponible = Longueur de la combinaison
+        nbCouleurs: 8, // Nombre de couleurs disponible (Cf. Mastermind.couleurs || this.couleurs)
     },
 
     jeu: {
-        tour: 0, // tour en cours
-        colonne: 0, // colonne utilisé actuellement
+        tour: 0, // Tour actuel, sert de comparaison avec this.parametres.lines || Incrémentation après validation de la sélection
+        colonne: 0, // Colonne utilisé actuellement
         selection: [], // Combinaison proposée par le joueur
-        combinaisonSecrete: [], // Combinaison à deviner pour remporter la partie
+        combinaisonSecrete: [], // Combinaison à deviner pour remporter la partie, générer ci-dessous
     },
 
-    defineCombinaisonSecrete() {
-        for (i = 0; i < this.parametres.colonnes; i++) {
+    defineCombinaisonSecrete() { // Méthode définissant une combinaisonSecrete ( Pas si secrète que ça pour les malins (: )
+        for (i = 0; i < this.parametres.colonnes; i++) { // Boucle : Longueur de la combinaison
+            // On ajoute à la liste this.jeu.combinaisonSecrete un double compris entre 0 et 1 multiplié par le nombre de couleurs disponible
+            // +1 car this.couleurs commence à 1
             this.jeu.combinaisonSecrete.push(parseInt(Math.random() * this.parametres.nbCouleurs) + 1);
         }
-    },
-
-    resetPartie() {
-        this.jeu[tour] = 0;
-        this.jeu[colonne] = 0;
     },
 
     getColor(choix) {
@@ -42,7 +39,7 @@ var MasterMind = {
             this.addColor(choix);
         }
         else {
-            alert("Vous ne pouvez pas placer plus de "+MasterMind.parametres.colonnes+" couleurs");
+            alert("Vous ne pouvez pas placer plus de " + MasterMind.parametres.colonnes + " couleurs");
         }
     },
 
@@ -86,7 +83,7 @@ var MasterMind = {
                 }
                 else { // Sinon 
                     compteur = 1;
-                    checked = [0, 0, 0, 0, 0, 0, 0, 0];
+                    indexBons = []
                     for (i = 0; i < this.parametres.colonnes; i++) {
                         // On check les biens placés
                         if (this.jeu.combinaisonSecrete[i] == this.jeu.selection[i]) {
@@ -95,30 +92,38 @@ var MasterMind = {
                             nomHint += '-';
                             nomHint += compteur;
                             document.getElementById(nomHint).className = 'dot hint hintOk';
-                            checked[this.jeu.combinaisonSecrete[i] - 1] = i;
+                            indexBons.push(i);
                             compteur++;
                         }
                     }
                     for (i = 0; i < this.parametres.colonnes; i++) {
-                        // On check les présents, mais mal placé
-                        if (this.jeu.selection.includes(this.jeu.combinaisonSecrete[i], checked[this.jeu.combinaisonSecrete[i] - 1]) && this.jeu.combinaisonSecrete[i] != this.jeu.selection[i]) {
-                            var nomHint = 'hint-';
-                            nomHint += 10 - this.jeu.tour;
-                            nomHint += '-';
-                            nomHint += compteur;
-                            document.getElementById(nomHint).className = 'dot hint hintNearly';
-                            compteur++;
+                        if (!(indexBons.includes(i))) {
+                            for (j = 0; j < this.parametres.colonnes; j++) {
+                                if (!(indexBons.includes(j))) {
+                                    if (this.jeu.combinaisonSecrete[j] == this.jeu.selection[i]) {
+                                        var nomHint = 'hint-';
+                                        nomHint += 10 - this.jeu.tour;
+                                        nomHint += '-';
+                                        nomHint += compteur;
+                                        document.getElementById(nomHint).className = 'dot hint hintNearly';
+                                        compteur++;
+                                        // indexBons.push(i);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                     }
-                    //Enfin on passe au tour suivant
-                    this.jeu.tour += 1;
-                    this.jeu.colonne = 0;
                 }
+
+                //Enfin on passe au tour suivant
+                this.jeu.tour += 1;
+                this.jeu.colonne = 0;
             }
         }
     },
 
-    restart(){
-        document.location.href="index.html";
+    restart() {
+        document.location.href = "index.html";
     }
 }
