@@ -50,7 +50,7 @@ var MasterMind = {
 
     addColor(choix) {
         var nomId = 'dot-';
-        nomId += 10 - this.jeu.tour;
+        nomId += this.parametres.lines - this.jeu.tour;
         nomId += '-';
         nomId += this.jeu.colonne + 1;
         if (choix == 0) { // Sert pour réinitialiser la dernière case
@@ -80,12 +80,12 @@ var MasterMind = {
         else {
             if (JSON.stringify(this.jeu.combinaisonSecrete) == JSON.stringify(this.jeu.selection)) { // Comparaison de la proposition et de la combinaison secrète
                 alert("Gagné");
-                this.restart();
+                this.reset();
             }
             else {
                 if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
                     alert("PERDU");
-                    this.restart();
+                    this.reset();
                 }
                 else { // Sinon 
                     compteur = 1;
@@ -94,7 +94,7 @@ var MasterMind = {
                         // On check les biens placés
                         if (this.jeu.combinaisonSecrete[i] == this.jeu.selection[i]) {
                             var nomHint = 'hint-';
-                            nomHint += 10 - this.jeu.tour;
+                            nomHint += this.parametres.lines - this.jeu.tour;
                             nomHint += '-';
                             nomHint += compteur;
                             document.getElementById(nomHint).className = 'dot hint hintOk';
@@ -108,7 +108,7 @@ var MasterMind = {
                                 if (!(indexBons.includes(j))) {
                                     if (this.jeu.combinaisonSecrete[j] == this.jeu.selection[i]) {
                                         var nomHint = 'hint-';
-                                        nomHint += 10 - this.jeu.tour;
+                                        nomHint += this.parametres.lines - this.jeu.tour;
                                         nomHint += '-';
                                         nomHint += compteur;
                                         document.getElementById(nomHint).className = 'dot hint hintNearly';
@@ -126,10 +126,6 @@ var MasterMind = {
                 this.jeu.colonne = 0;
             }
         }
-    },
-
-    restart() {
-        document.location.href = "index.html";
     },
 
     recupererParametres() {

@@ -80,7 +80,9 @@ input[type="range"]:after {
     content: attr(max);
 }
 
-input {
+.texte {
 		border: none;
 		background: transparent;
+		outline: none;
+		cursor: default;
 	}
