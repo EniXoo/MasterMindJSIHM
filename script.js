@@ -15,7 +15,7 @@ var MasterMind = {
     parametres: {
         lines: 10, // Lignes disponibles avant de perdre = Nombre d'essai pour trouver la combinaison secrète
         colonnes: 4, // Colonnes disponible = Longueur de la combinaison
-        nbCouleurs: 8, // Nombre de couleurs disponible (Cf. Mastermind.couleurs || this.couleurs)
+        nbCouleurs: 6, // Nombre de couleurs disponible (Cf. Mastermind.couleurs || this.couleurs)
     },
 
     jeu: {
@@ -23,6 +23,11 @@ var MasterMind = {
         colonne: 0, // Colonne utilisé actuellement
         selection: [], // Combinaison proposée par le joueur
         combinaisonSecrete: [], // Combinaison à deviner pour remporter la partie, générer ci-dessous
+    },
+
+    initialisation() {
+        this.defineCombinaisonSecrete();
+        this.drawGameBoard();
     },
 
     defineCombinaisonSecrete() { // Méthode définissant une combinaisonSecrete ( Pas si secrète que ça pour les malins (: )
@@ -75,6 +80,7 @@ var MasterMind = {
         else {
             if (JSON.stringify(this.jeu.combinaisonSecrete) == JSON.stringify(this.jeu.selection)) { // Comparaison de la proposition et de la combinaison secrète
                 alert("Gagné");
+                this.restart();
             }
             else {
                 if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
@@ -107,7 +113,7 @@ var MasterMind = {
                                         nomHint += compteur;
                                         document.getElementById(nomHint).className = 'dot hint hintNearly';
                                         compteur++;
-                                        // indexBons.push(i);
+                                        indexBons.push(i);
                                         break;
                                     }
                                 }
@@ -127,33 +133,80 @@ var MasterMind = {
         document.location.href = "index.html";
     },
 
-    getParameterColonne() {
-        var col = document.getElementsByName('paraColonne');
-        for (var i = 0; i < col.length; i++) {
-            if (col[i].checked) {
-                MasterMind.parametres.colonnes = parseInt(col[i].value, 10);
-                break;
+    recupererParametres() {
+        this.getParameterColonne()
+        this.getParameterCouleur();
+        this.getParameterLigne();
+        this.reset();
+    },
+
+    reset() {
+        this.jeu.tour = 0;
+        this.jeu.colonne = 0;
+        this.jeu.selection = [];
+        this.jeu.combinaisonSecrete = [];
+        this.defineCombinaisonSecrete();
+        this.drawGameBoard();
+    },
+
+    drawGameBoard() {
+        this.drawGrid();
+        this.drawColorSelection();
+    },
+
+    drawGrid() {
+        document.getElementById('dot-container').innerHTML = "";
+        for (i = 1; i <= this.parametres.lines; i++) {
+            var line = document.createElement('div');
+            var addHere = document.getElementById('dot-container');
+            line.className = "ligne" + i;
+            line.id = "ligne-" + i;
+            addHere.appendChild(line);
+            for (j = 1; j <= this.parametres.colonnes; j++) {
+                var cell = document.createElement('div');
+                var addHere2 = document.getElementById("ligne-" + i);
+                cell.className = "dot";
+                cell.id = "dot-" + i + "-" + j;
+                addHere2.appendChild(cell);
+            }
+            for (j = 1; j <= this.parametres.colonnes; j++) {
+                var hint = document.createElement('div');
+                var addHere2 = document.getElementById("ligne-" + i);
+                hint.className = "dot hint";
+                hint.id = "hint-" + i + "-" + j;
+                addHere2.appendChild(hint);
             }
         }
+    },
+
+    drawColorSelection() {
+        document.getElementById('choice-container').innerHTML = "";
+        for (i = 1; i <= this.parametres.nbCouleurs; i++) {
+            var br = document.createElement('br');
+            var el = document.createElement('div');
+            var addHere = document.getElementById('choice-container');
+            el.id = "dot-" + i;
+            el.className = "dot dot" + i;
+            el.setAttribute('onclick', this.nom + '.getColor(' + i + ');');
+            addHere.appendChild(el);
+            if (i == 4)
+                addHere.appendChild(br);
+        }
+    },
+
+    getParameterColonne() {
+        this.parametres.colonnes = parseInt(document.getElementById('paramColonne').value);
     },
 
     getParameterLigne() {
-        var lig = document.getElementsByName('paraLigne');
-        for (var i = 0; i < lig.length; i++) {
-            if (lig[i].checked) {
-                MasterMind.parametres.lines = parseInt(lig[i].value, 10);
-                break;
-            }
-        }
+        this.parametres.lines = parseInt(document.getElementById('paramLigne').value);
     },
 
     getParameterCouleur() {
-        var coul = document.getElementsByName('paraCoule');
-        for (var i = 0; i < coul.length; i++) {
-            if (coul[i].checked) {
-                MasterMind.parametres.nbCouleurs = parseInt(coul[i].value, 10);
-                break;
-            }
-        }
-    }
+        this.parametres.nbCouleurs = parseInt(document.getElementById('paramCouleur').value);
+    },
+
+    updateTextInput(valeur, cadre) {
+        document.getElementById(cadre).value = valeur;
+    },
 }
