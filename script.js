@@ -113,7 +113,6 @@ var MasterMind = {
                                         nomHint += compteur;
                                         document.getElementById(nomHint).className = 'dot hint hintNearly';
                                         compteur++;
-                                        indexBons.push(i);
                                         break;
                                     }
                                 }
