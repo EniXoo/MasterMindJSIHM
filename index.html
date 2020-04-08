@@ -22,16 +22,21 @@
 	<div>
 		<h1>Paramètres</h1>
 
-		<input type="range" min="4" max=8 id="paramColonne" onchange="MasterMind.updateTextInput(this.value,'text1');">
+		<input type="range" min="4" max=8 value="4" id="paramColonne"
+			onchange="MasterMind.updateTextInput(this.value,'text1');">
 		<label for="paramColonne">Colonne</label>
 		<input type="text" id="text1" value="" class="texte" readonly>
-		<input type="range" min="5" max=10 id="paramLigne" onchange="MasterMind.updateTextInput(this.value,'text2');">
+		<input type="range" min="5" max=10 id="paramLigne" value="10"
+			onchange="MasterMind.updateTextInput(this.value,'text2');">
 		<label for=" paramLigne">Ligne</label>
 		<input type="text" id="text2" value="" class="texte" readonly>
-		<input type="range" min="4" max=8 id=paramCouleur onchange="MasterMind.updateTextInput(this.value,'text3');">
+		<input type="range" min="4" max=8 value="6" id=paramCouleur
+			onchange="MasterMind.updateTextInput(this.value,'text3');">
 		<label for=" paramCouleur">Nombre de couleurs</label>
 		<input type="text" id="text3" value="" class="texte" readonly>
 		<input type="button" onclick="MasterMind.recupererParametres()" value="Valider">
+		<input type="checkbox" id="doublonTrue" value="1" name="Oui">
+		<label for="doublonTrue">Doublons possibles</label>
 	</div>
 
 </body>

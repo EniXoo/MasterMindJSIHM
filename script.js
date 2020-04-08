@@ -16,6 +16,7 @@ var MasterMind = {
         lines: 10, // Lignes disponibles avant de perdre = Nombre d'essai pour trouver la combinaison secrète
         colonnes: 4, // Colonnes disponible = Longueur de la combinaison
         nbCouleurs: 6, // Nombre de couleurs disponible (Cf. Mastermind.couleurs || this.couleurs)
+        doublons: 0,
     },
 
     jeu: {
@@ -26,15 +27,28 @@ var MasterMind = {
     },
 
     initialisation() {
-        this.defineCombinaisonSecrete();
-        this.drawGameBoard();
+        this.reset();
     },
 
     defineCombinaisonSecrete() { // Méthode définissant une combinaisonSecrete ( Pas si secrète que ça pour les malins (: )
+        var verif;
+        var test = 1;
         for (i = 0; i < this.parametres.colonnes; i++) { // Boucle : Longueur de la combinaison
             // On ajoute à la liste this.jeu.combinaisonSecrete un double compris entre 0 et 1 multiplié par le nombre de couleurs disponible
             // +1 car this.couleurs commence à 1
-            this.jeu.combinaisonSecrete.push(parseInt(Math.random() * this.parametres.nbCouleurs) + 1);
+            if (this.parametres.doublons == 1) {
+                this.jeu.combinaisonSecrete.push(parseInt(Math.random() * this.parametres.nbCouleurs) + 1);
+            }
+            else {
+                isInserted = false;
+                while (!isInserted) {
+                    verif = parseInt((Math.random() * this.parametres.nbCouleurs) + 1);
+                    if ((this.jeu.combinaisonSecrete).includes(verif) == false) {
+                        this.jeu.combinaisonSecrete.push(verif);
+                        isInserted = true;
+                    }
+                }
+            }
         }
     },
 
@@ -44,7 +58,7 @@ var MasterMind = {
             this.addColor(choix);
         }
         else {
-            alert("Vous ne pouvez pas placer plus de " + MasterMind.parametres.colonnes + " couleurs");
+            alert("Vous ne pouvez pas placer plus de " + this.parametres.colonnes + " couleurs");
         }
     },
 
@@ -89,7 +103,7 @@ var MasterMind = {
                 }
                 else { // Sinon 
                     compteur = 1;
-                    indexBons = []
+                    temp = this.jeu.combinaisonSecrete.slice(0);
                     for (i = 0; i < this.parametres.colonnes; i++) {
                         // On check les biens placés
                         if (this.jeu.combinaisonSecrete[i] == this.jeu.selection[i]) {
@@ -98,25 +112,20 @@ var MasterMind = {
                             nomHint += '-';
                             nomHint += compteur;
                             document.getElementById(nomHint).className = 'dot hint hintOk';
-                            indexBons.push(i);
+                            temp[i] = 0;
+                            this.jeu.selection[i] = -1; // Servira de blocage à la fonction indexOf()
                             compteur++;
                         }
                     }
-                    for (i = 0; i < this.parametres.colonnes; i++) {
-                        if (!(indexBons.includes(i))) {
-                            for (j = 0; j < this.parametres.colonnes; j++) {
-                                if (!(indexBons.includes(j))) {
-                                    if (this.jeu.combinaisonSecrete[j] == this.jeu.selection[i]) {
-                                        var nomHint = 'hint-';
-                                        nomHint += this.parametres.lines - this.jeu.tour;
-                                        nomHint += '-';
-                                        nomHint += compteur;
-                                        document.getElementById(nomHint).className = 'dot hint hintNearly';
-                                        compteur++;
-                                        break;
-                                    }
-                                }
-                            }
+                    for (var j = 0; j < temp.length; j++) {
+                        if (temp.indexOf(this.jeu.selection[j]) !== -1) {
+                            var nomHint = 'hint-';
+                            nomHint += this.parametres.lines - this.jeu.tour;
+                            nomHint += '-';
+                            nomHint += compteur;
+                            document.getElementById(nomHint).className = 'dot hint hintNearly';
+                            temp[temp.indexOf(this.jeu.selection[j])] = 0;
+                            compteur++;
                         }
                     }
                 }
@@ -129,9 +138,10 @@ var MasterMind = {
     },
 
     recupererParametres() {
-        this.getParameterColonne()
+        this.getParameterColonne();
         this.getParameterCouleur();
         this.getParameterLigne();
+        this.getParameterDoublon(); // Dû a un bug qui a lieu lorsque le nombre de colonnes dépasse le nombre de couleurs disponibles lorsque les doublons sont désactivés, on appelle TOUJOURS Doublon après les autresn sans quoi on risque une boucle infinie.
         this.reset();
     },
 
@@ -191,6 +201,7 @@ var MasterMind = {
 
     getParameterColonne() {
         this.parametres.colonnes = parseInt(document.getElementById('paramColonne').value);
+
     },
 
     getParameterLigne() {
@@ -199,6 +210,20 @@ var MasterMind = {
 
     getParameterCouleur() {
         this.parametres.nbCouleurs = parseInt(document.getElementById('paramCouleur').value);
+    },
+
+    getParameterDoublon() {
+        if (document.getElementById('doublonTrue').checked == true) {
+            this.parametres.doublons = parseInt(document.getElementById('doublonTrue').value);
+        }
+        else {
+            this.parametres.doublons = 0;
+        }
+        if (this.parametres.colonnes > this.parametres.nbCouleurs) {
+            this.parametres.doublons = 1;
+            document.getElementById('doublonTrue').checked = true;
+
+        }
     },
 
     updateTextInput(valeur, cadre) {
