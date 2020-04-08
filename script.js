@@ -75,43 +75,38 @@ var MasterMind = {
         else {
             if (JSON.stringify(this.jeu.combinaisonSecrete) == JSON.stringify(this.jeu.selection)) { // Comparaison de la proposition et de la combinaison secrète
                 alert("Gagné");
+                this.reset();
             }
             else {
                 if (this.jeu.tour == this.parametres.lines - 1) { // Si plus d'essai
                     alert("PERDU");
-                    this.restart();
+                    this.reset();
                 }
                 else { // Sinon 
                     compteur = 1;
-                    indexBons = []
+                    temp = this.jeu.combinaisonSecrete.slice(0);
                     for (i = 0; i < this.parametres.colonnes; i++) {
                         // On check les biens placés
                         if (this.jeu.combinaisonSecrete[i] == this.jeu.selection[i]) {
                             var nomHint = 'hint-';
-                            nomHint += 10 - this.jeu.tour;
+                            nomHint += this.parametres.lines - this.jeu.tour;
                             nomHint += '-';
                             nomHint += compteur;
                             document.getElementById(nomHint).className = 'dot hint hintOk';
-                            indexBons.push(i);
+                            temp[i] = 0;
+                            this.jeu.selection[i] = -1; // Servira de blocage à la fonction indexOf()
                             compteur++;
                         }
                     }
-                    for (i = 0; i < this.parametres.colonnes; i++) {
-                        if (!(indexBons.includes(i))) {
-                            for (j = 0; j < this.parametres.colonnes; j++) {
-                                if (!(indexBons.includes(j))) {
-                                    if (this.jeu.combinaisonSecrete[j] == this.jeu.selection[i]) {
-                                        var nomHint = 'hint-';
-                                        nomHint += 10 - this.jeu.tour;
-                                        nomHint += '-';
-                                        nomHint += compteur;
-                                        document.getElementById(nomHint).className = 'dot hint hintNearly';
-                                        compteur++;
-                                        // indexBons.push(i);
-                                        break;
-                                    }
-                                }
-                            }
+                    for (var j = 0; j < temp.length; j++) {
+                        if (temp.indexOf(this.jeu.selection[j]) !== -1) {
+                            var nomHint = 'hint-';
+                            nomHint += this.parametres.lines - this.jeu.tour;
+                            nomHint += '-';
+                            nomHint += compteur;
+                            document.getElementById(nomHint).className = 'dot hint hintNearly';
+                            temp[temp.indexOf(this.jeu.selection[j])] = 0;
+                            compteur++;
                         }
                     }
                 }
