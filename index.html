@@ -1,45 +1,86 @@
+.
+<!--<!DOCTYPE html> - On ne l'écrit pas car cela empêche le valign-wrapper de fonctionner sur le body-->
 <html lang="fr">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="style.css" />
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<!-- Import Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<title>Mastermind</title>
 </head>
 
-<body onload="MasterMind.initialisation()">
-	<div class="board">
-		<div class="dotContainer" id="dot-container">
+<body onload="MasterMind.initialisation()" class="valign-wrapper">
+	<!--Taille du container en fonction du device-width-->
+	<div class="container">
+		<!--Ligne pour utilisation de Grid-->
+		<div class="row valign-wrapper">
+			<!--Grid défini sur 12 colonnes, on met 1 colonne de marge-->
+			<div class="col s1"></div>
+			<!--On met 6 colonnes pour le board-->
+			<div class="col s6">
+				<div class="board center">
+					<br /><br />
+					<!--La div dotContainer contiendra la grille générée par le JS en fonction
+					des paramètres fournis-->
+					<div class="dotContainer center" id="dot-container">
+					</div>
+					<br /><br />
+					<!--La div choiceContainer contiendra les couleurs à choisir générés par le 
+					JS en fonction des paramètres fournis-->
+					<div class="choiceContainer" id="choice-container">
+					</div>
+					<div id="choices" style="border-radius : 0 0 2vw 2vw;">
+						<img style="height: 3vw;width: 3vw;vertical-align: middle;" src="check-solid.svg" alt="check"
+							onclick=MasterMind.checkProposition()>
+						<img style="height: 3vw;width: 3vw;vertical-align: middle;" src="times-solid.svg" alt="delete"
+							onclick=MasterMind.clearLast()>
+					</div>
+				</div>
+			</div>
+			<!--On met 4 colonnes pour les paramètres, il en reste 1 pour la marge droite-->
+			<div class="col s4 bg-parameters center">
+				<p class="flow-text white-text">Paramètres</p>
+				<!--Choix de la difficulté personnalisée-->
+				<label for="paramColonne" class="black-text">Colonnes</label>
+				<p class="range-field">
+					<input type="range" min="4" max="8" value="4" id="paramColonne" class="input-range" />
+				</p>
+				<label for="paramLigne" class="black-text">Lignes</label>
+				<p class="range-field">
+					<input type="range" min="5" max="10" value="10" id="paramLigne" class="input-range" />
+				</p>
+				<label for="paramCouleur" class="black-text">Nombre de couleurs</label>
+				<p class="range-field">
+					<input type="range" min="4" max="8" value="6" id="paramCouleur" class="input-range" />
+				</p>
+				<!--Doublon peut être amené à changer automatiquement en fonction des paramètres précédent-->
+				<div>
+					<form action="#">
+						<p class="flow-text">
+							<label>
+								<input type="checkbox" id="doublonTrue" value="1" name="Oui" class="input-checkbox" />
+								<span class="black-text">Doublons dans la combinaison secrète</span>
+							</label>
+						</p>
+					</form>
+				</div>
+				<!--Validation de la difficulté personnalisée-->
+				<a onclick="MasterMind.recupererParametres()" class="waves-effect btn bg-button"><i
+						class="material-icons right">check</i>Valider</a>
+				<!--check est un icon de la bibliothèque importée ligne 15-->
+				<br />
+				<br />
+			</div>
 		</div>
-		<br /><br />
-		<div class="choiceContainer" id="choice-container">
-		</div>
-		<img style="height: 3vw;width: 3vw;vertical-align: middle;" src="check-solid.svg" alt="check"
-			onclick=MasterMind.checkProposition()>
-		<img style="height: 3vw;width: 3vw;vertical-align: middle;" src="times-solid.svg" alt="delete"
-			onclick=MasterMind.clearLast()>
 	</div>
-	<div>
-		<h1>Paramètres</h1>
-
-		<input type="range" min="4" max=8 value="4" id="paramColonne"
-			onchange="MasterMind.updateTextInput(this.value,'text1');">
-		<label for="paramColonne">Colonne</label>
-		<input type="text" id="text1" value="" class="texte" readonly>
-		<input type="range" min="5" max=10 id="paramLigne" value="10"
-			onchange="MasterMind.updateTextInput(this.value,'text2');">
-		<label for=" paramLigne">Ligne</label>
-		<input type="text" id="text2" value="" class="texte" readonly>
-		<input type="range" min="4" max=8 value="6" id=paramCouleur
-			onchange="MasterMind.updateTextInput(this.value,'text3');">
-		<label for=" paramCouleur">Nombre de couleurs</label>
-		<input type="text" id="text3" value="" class="texte" readonly>
-		<input type="button" onclick="MasterMind.recupererParametres()" value="Valider">
-		<input type="checkbox" id="doublonTrue" value="1" name="Oui">
-		<label for="doublonTrue">Doublons possibles</label>
-	</div>
-
+	<!--Script de jeu-->
+	<script src="script.js" defer></script>
+	<!-- Compiled and minified JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
-<script src="script.js" defer></script>
 
 </html>

@@ -1,88 +1,175 @@
+/*PARTIE COULEURS*/
+/*Couleur de fond du site*/
+body{
+	background-color: #23272A;
+	margin: 0;
+	padding: 0;
+}
+/*Paramètres du plateau*/
 .board {
-	background-color: #444;
-	width: 50%;
-	height: auto;
-	margin-left: auto;
-	margin-right: auto;
+	border-radius: 2vw; /*Arrondi*/
+	background-color: #2C2F33; /*Couleur de fond*/
+	width: auto; /*Taille en fonction du contenu*/
+	height: auto;  /*Taille en fonction du contenu*/
 }
+/*Couleur de fond du menu paramètre*/
+.bg-parameters{
+	background-color: #7289da;
+	border-radius: 2vw !important;
+}
+
+/*PARTIE PIONS*/
+/*Zone contenant les slots, taille automatique*/
 .dotContainer{
-	width: 50%;
+	width: auto;
 	height: auto;
-	margin-left: auto;
-	margin-right: auto;
 }
+/*Slot*/
 .dot {
 	vertical-align: middle;
-	height: 3vw;
-	width: 3vw;
-	background-color: #bbb;
-	border-radius: 50%;
+	height: 2vw;
+	width: 2vw;
+	background-color: #777;
+	border-radius: 35%;
 	display: inline-block;
-	margin: 2% 2%;
+	margin: 1.25% 1.25%;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn2;
 }
+/*Enumération couleurs pions*/
 .dot1 {
-	background-color: #000;
+	background-color: #e03333;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot2 {
-	background-color: #fff;
+	background-color: #4ff156;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot3 {
-	background-color: #f00;
+	background-color: #4f5ef1;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot4 {
-	background-color: #f70;
+	background-color: #272424;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot5 {
-	background-color: #ff0;
+	background-color: #ffffff;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot6 {
-	background-color: #00f;
+	background-color: #f7f74e;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot7 {
-	background-color: #0ff;
+	background-color: #7bf9f9;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
 .dot8 {
-	background-color: #70f;
+	background-color: #ed7bf9;
+	animation-duration: 0.75s;
+  	animation-name: bounceIn;
 }
-
+/*Indice reprenant .dot par défaut, et redéfinnisant certain paramètre CSS*/
 .hint {
-	background-color: inherit;
-	height: 1vw;
-	width: 1vw;
+	background-color: inherit; /*Pas de couleur de fond*/
+	height: 0.5vw;
+	width: 0.5vw;
+	border-radius: 50%;
 	border: 1px #000 solid;
-	margin: 1% 1%;
+	margin: 0.75%;
 }
-
+/*Indice reprenant .hint, indiquant qu'un pion est bien placé, on redéfini la couleur de fond*/
 .hintOk{
 	background-color: black;
 }
-
+/*Indice reprenant .hint, indiquant qu'un pion est bien placé, on redéfini la couleur de fond*/
 .hintNearly{
 	background-color: white;
 }
-
-input[type="range"] {
-    position: relative;
-    margin-left: 1em;
-}
-input[type="range"]:after,
-input[type="range"]:before {
-    position: absolute;
-    top: 1em;
-    color: #aaa;
-}
-input[type="range"]:before {
-    left:0em;
-    content: attr(min);
-}
-input[type="range"]:after {
-    right: 0em;
-    content: attr(max);
+/*Emplacement courant, celui à renseigner au moment m*/
+.pionSelected{
+	border: 2px inset #7289da;
 }
 
-.texte {
-		border: none;
-		background: transparent;
-		outline: none;
-		cursor: default;
+.black-text{
+	font-size: 1vw !important;
+}
+/*OVERWRITTING MATERIALIZE CSS*/
+/*Couleur bulle*/
+.thumb.active{
+	background-color: #2C2F33 !important;
+}
+/*Couleur texte bulle*/
+.thumb.active.value {
+	color: #ffffff !important;
+}
+/*Couleur checkbox*/
+.black-text::before{
+	border: 2px solid #2C2F33 !important;
+}
+/*Checkbox Checked Redo*/
+[type="checkbox"]:checked + span:not(.lever):before {
+	border-top: 2px solid transparent !important;
+    border-left: 2px solid transparent !important;
+}
+/*Paramètre du bouton du menu paramètre*/
+.bg-button{
+	background-color: #2C2F33 !important;/* !important nécessaire pour overwrite le CSS de Materialize*/
+}
+/*Range border*/
+.input-range {
+	border: none !important;
+}
+/*Range slider color*/
+.input-range::-webkit-slider-runnable-track {
+	background-color: #ffffff !important;
+}
+/*Range slider cursor color*/
+.input-range::-webkit-slider-thumb {/*Chrome*/
+	background-color: #2C2F33!important;
+}
+.input-range::-moz-range-thumb {/*Modzilla*/
+	background-color: #2C2F33 !important;
+}
+.input-range::-ms-thumb {/*Internet-Explorer*/
+	background-color: #2C2F33 !important; 
+}
+
+@keyframes bounceIn {
+	0% {
+		transform: scale(0.1);
+		opacity: 0;
 	}
+	60% {
+		transform: scale(1.2);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+
+@keyframes bounceIn2 {
+	0% {
+		transform: scale(1.5);
+		opacity: 0;
+	}
+	60% {
+		transform: scale(0.5);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+ 
+  
