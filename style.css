@@ -80,11 +80,11 @@ body{
 /*Indice reprenant .dot par défaut, et redéfinnisant certain paramètre CSS*/
 .hint {
 	background-color: inherit; /*Pas de couleur de fond*/
-	height: 0.5vw;
-	width: 0.5vw;
+	height: 0.6vw;
+	width: 0.6vw;
 	border-radius: 50%;
-	border: 1px #000 solid;
-	margin: 0.75%;
+	border: 0.5px #000 solid;
+	margin: 0.25%;
 }
 /*Indice reprenant .hint, indiquant qu'un pion est bien placé, on redéfini la couleur de fond*/
 .hintOk{
