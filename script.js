@@ -100,11 +100,11 @@ var MasterMind = {
         }
         else {
             if (JSON.stringify(this.jeu.combinaisonSecrete) == JSON.stringify(this.jeu.selection)) { // Comparaison de la proposition et de la combinaison secrète
-                alert("Gagné");
+                alert("Vous avez gagné en "+(this.jeu.tour+1)+" coups ! Une nouvelle partie va commencer.");
                 this.reset();
             }
             else if (this.jeu.tour == this.parametres.lines - 1) {// Si plus d'essais
-                alert("PERDU");
+                alert("Vous avez perdu, une nouvelle partie va commencer");
                 this.reset();
             }
             else {
